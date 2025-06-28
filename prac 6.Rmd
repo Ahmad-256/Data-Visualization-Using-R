@@ -1,0 +1,68 @@
+---
+title: "Untitled"
+output: html_document
+date: "2024-04-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+head(attitude)
+```
+```{r}
+y<-attitude$rating
+x<-attitude$complaints
+my_fit<-lm(y~x)
+my_fit
+plot(x,y,main="my scatter plot",col = "red")
+yhat<-my_fit$fitted.values
+plot(x,yhat)
+lines(x,yhat,col="red",lwd=2,lty=3)
+
+
+```
+```{r}
+res<-yhat
+res
+
+e<-my_fit$residuals
+
+plot(yhat, e)
+lines(yhat,e)
+```
+```{r}
+multipe.fit<-lm(rating~complaints+privileges,data = attitude)
+attach(attitude)
+plot(complaints,rating,type = "b")
+plot(privileges,rating)
+abline(h=((max(rating)*min(rating))/2),lty=3)
+abline(h=max(rating),lty=3)
+abline(h=min(rating),lty=3)
+
+
+```
+```{r}
+yhat<-my_fit$fitted.values
+residuals<-my_fit$residuals
+
+plot(yhat,residuals)
+lines(yhat,residuals)
+# 2 curve called 2nd degree parabola
+
+
+```
+```{r}
+my_fit<-lm(rating~learning)
+yhat<-my_fit$fitted.values
+residuals<-my_fit$residuals
+max_residual<-max(residuals)
+min_residual<-min(residuals)
+
+plot(yhat,residuals)
+abline(h=0,lty=3)
+abline(h=max_residual,col="blue",lty=3)
+abline(h=min_residual,col="red",lty=3)
+```
+

@@ -1,0 +1,72 @@
+---
+title: "Untitled"
+output: html_document
+date: "2024-03-12"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+data(mtcars)
+colnames(mtcars)
+dim(mtcars)
+attach(mtcars)
+detach(mtcars)
+```
+
+```{r}
+# we ca convert quantitative data into qualitative like age between age 1 (o-10),age2(11-20),age3(21-30)
+# another example of income is <10000(low),10000-50000(average),>50000(high)
+```
+#for frequency distribution we use command table()
+```{r}
+attach(mtcars)
+cyl
+cyl_cat<-table(cyl)
+cyl_cat
+my_barplot<-barplot(cyl_cat,main="my barplot",
+                    names.arg = c("4 cylinder","6 cylinder","8 cylinder"),
+                    col = c("red","green","blue"),
+                    ylim=c(0,20),legend.text = c("4 cylinder","6 cylinder","8 cylinder"),
+                    args.legend = list(x="top"))
+text(my_barplot,cyl_cat+2,labels=cyl_cat) # (if we want o print frequency on the                                              bars of plot we just                                                             add,subtract,divide the frequency                                                on cyl_cat).
+
+```
+```{r}
+par(mfrow=c(1,2))#for limit the graphs in the page
+my_barplot<-barplot(cyl_cat,main="my barplot",beside=TRUE,col = c("red","green","blue"),
+                    ylim = c(0,20),names.arg = c("cyl 4","cyl 6","cyl 8"),
+                    legend.text = c("cyl 4","cyl 6","cyl 8"),
+                    args.legend = list(x="topleft")
+                    )
+text(my_barplot,cyl_cat+1,labels = cyl_cat)
+
+prop_table<-prop.table(cyl_cat)*100
+prop_table
+
+my_barplot<-barplot(prop_table,main="percentage of my barplot",
+                    col = c("grey","yellow","darkorange"),ylim = c(0,50),
+                    legend.text = c("cyl 4","cyl 6","cyl 8"),
+                    args.legend = list(x="top"))
+text(my_barplot,prop_table+2,labels = prop_table)
+factor(mtcars$cyl)
+par(mfrow=c(1,1))
+```
+
+```{r}
+my_table<-prop.table(table(cyl))*100
+par(mar=c(2,3,5,2))
+p.table<-barplot(prop.table(cyl_cat)*100,
+                 main = "Relative frequency (%)",
+                 width = c(0.2,0.4,0.6),space = 0.2,
+                 col = rainbow(3),ylim=c(0,60),border = "black",
+                 xlab="no. of cylinder",ylab="Frequency",family="serif",
+                 names.arg = c("Category 1","Category 2","Category 3"),
+                 legend.text = c("Category 1","Category 2","Category 3"),
+                 args.legend = list(x="topleft")  )
+text(p.table,my_table+2,labels=my_table)
+```
+
+

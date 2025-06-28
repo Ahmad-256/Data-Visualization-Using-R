@@ -1,0 +1,94 @@
+---
+title: "visul 1"
+output: html_document
+date: "2024-03-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+salespersons <- c("Alice", "Bob", "Alice", "Charlie", "Bob", "Charlie", "Alice", "Bob", "Charlie")
+products_sold <- c(10, 8, 12, 7, 9, 6, 11, 8, 7)
+hours_worked <- c(6, 7, 8, 5, 6, 5, 7, 6, 5)
+sales_amount <- c(200, 150, 220, 180, 190, 160, 210, 170, 165)
+
+summary(sales_amount)
+
+my_barplot1<-barplot(sales_amount,names.arg = salespersons,col=heat.colors(9),border="black",
+        ylim = c(0,250),
+        main="barplot of sales amount",xlab="product sold",
+        ylab = "frequency",width=0.5,space=0.4,las=3,srt=90
+        )
+text(my_barplot1,sales_amount+15,labels=sales_amount,las=3,srt=45
+     )
+```
+```{r}
+# Sample dataset representing smartphone sales
+smartphone_models <- c("iPhone 11", "Samsung Galaxy S20", "Google Pixel 4", "OnePlus 8", "Huawei P40")
+units_sold <- c(1500, 1200, 800, 1000, 600)
+
+# Create barplot
+barplot(units_sold, 
+        names.arg = smartphone_models, 
+        width=0.4,
+        space = 0.5,
+        col = "blue", 
+        axis.lty = 90,
+        main = "Smartphone Sales Performance", 
+        xlab = "Smartphone Models", 
+        ylab = "Units Sold",las = 3,srt=45)
+
+```
+```{r}
+data("longley")
+dim(longley)
+glimpse(longley)
+head(longley)
+is.data.frame(longley)
+names(longley)
+b<-barplot(longley$GNP ~ longley$Year,col="orange",border="black",xlab="year",
+           las = 2,srt=45,ylim=c(0,800))
+text(b,longley$GNP+10,labels = longley$GNP,las=2,srt=90)
+
+```
+
+```{r}
+my.vec<-c(5,10,3,15)
+barplot(my.vec,col="green")
+```
+```{r}
+attach(longley)
+b<-barplot(cbind(Employed, Unemployed,Population,GNP) ~ Year, data = longley,
+        las=2, legend.text=c("Employed", "Unemployed", "Population", "GNP"),
+       args.legend=list(x="topleft"),ylim=c(0,1500),col=heat.colors(4))
+
+total_sum<-apply(cbind(Employed, Unemployed,Population,GNP),1,sum)
+total_sum
+total_sum<-round(total_sum,1)
+total_sum
+text(b,table(longley$Year)+300,labels = total_sum,
+      las=1,srt=90)
+
+detach(longley)
+op <- par(mfrow = c(2:1), mgp = c(3,1,0)/2, mar = .1+c(3,3:1))
+op
+```
+
+```{r}
+data("Titanic")
+summary(d.Titanic <- as.data.frame(Titanic))
+names(d.Titanic)
+head(Titanic)
+d.Titanic$Survived
+Titanic
+```
+
+```{r}
+barplot(Freq ~ Class + Survived , data = d.Titanic,
+        subset = Age == "Adult" & Sex == "Male",
+        main = "barplot(Freq ~ Class + Survived, *)", ylab = "# {passengers}", 
+        legend.text = TRUE,beside=F)
+```
+

@@ -1,0 +1,43 @@
+---
+title: "Untitled"
+output: html_document
+date: "2024-03-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+df<-data.frame(cot_color=c("red","green","white","blue","black"),count=c(13,15,19,11,10))
+par(mar=c(2,3,5,2))
+cars_plot<-barplot(height=df$count,names=df$cot_color,
+                   col=c("red","green","white","blue","black"),ylim=c(0,30),
+                   names.arg = c("red","green","white","blue","black"),
+                   legend.text = df$cot_color,args.legend = list(x="topright") )
+text(cars_plot,df$count+1,labels=df$count)
+```
+```{r}
+data(mtcars)
+glimpse(mtcars)
+wt_bar<-barplot(table(cut(mtcars$wt,breaks=seq(1,6,by=1))),col = rainbow(6))
+ summary(mtcars$wt)
+```
+
+
+```{r}
+
+multiple_table<-table(mtcars$cyl,mtcars$am)
+multiple_table
+barplot(multiple_table,beside = T,xlab="Multiplebar chart",ylab = "Frequency",
+        legend.text = c("Four cyl","Six cyl","Eight cyl"),
+        col = rainbow(3),names.arg = c("manual","automatic"),ylim = c(0,20))
+
+```
+```{r}
+library(graphics)
+mosaicplot(multiple_table,xlab="Multiplebar chart",ylab = "Frequency",
+        legend.text = c("Four cyl","Six cyl","Eight cyl"),
+        col = rainbow(3),names.arg = c("manual","automatic"),ylim = c(0,15) )
+```
+
